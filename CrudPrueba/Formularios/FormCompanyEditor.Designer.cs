@@ -48,6 +48,7 @@
             this.LabelFecha = new System.Windows.Forms.Label();
             this.TxtTitulo = new System.Windows.Forms.Label();
             this.Dtp_Fecha_Actualizacion = new System.Windows.Forms.DateTimePicker();
+            this.BtnCancelarCrear = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -216,11 +217,22 @@
             this.Dtp_Fecha_Actualizacion.Size = new System.Drawing.Size(347, 20);
             this.Dtp_Fecha_Actualizacion.TabIndex = 20;
             // 
+            // BtnCancelarCrear
+            // 
+            this.BtnCancelarCrear.Location = new System.Drawing.Point(92, 292);
+            this.BtnCancelarCrear.Name = "BtnCancelarCrear";
+            this.BtnCancelarCrear.Size = new System.Drawing.Size(75, 23);
+            this.BtnCancelarCrear.TabIndex = 21;
+            this.BtnCancelarCrear.Text = "Cancelar";
+            this.BtnCancelarCrear.UseVisualStyleBackColor = true;
+            this.BtnCancelarCrear.Click += new System.EventHandler(this.BtnCancelarCrear_Click);
+            // 
             // FormCompanyEditor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(410, 339);
+            this.Controls.Add(this.BtnCancelarCrear);
             this.Controls.Add(this.Dtp_Fecha_Actualizacion);
             this.Controls.Add(this.TxtTitulo);
             this.Controls.Add(this.LabelFecha);
@@ -276,5 +288,6 @@
         private System.Windows.Forms.Label LabelFecha;
         private System.Windows.Forms.Label TxtTitulo;
         private System.Windows.Forms.DateTimePicker Dtp_Fecha_Actualizacion;
+        private System.Windows.Forms.Button BtnCancelarCrear;
     }
 }

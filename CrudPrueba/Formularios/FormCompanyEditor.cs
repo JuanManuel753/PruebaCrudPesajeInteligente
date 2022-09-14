@@ -27,12 +27,14 @@ namespace CrudPrueba.Formularios
                 LabelFecha.Text = "Fecha De Actualizacion";
                 TxtTitulo.Text = "Editando Empresa";
                 Dtp_Fecha_Creacion.Visible = false;
+                BtnCancelarCrear.Visible = false;
                 CargarDatos();
             }
             else
             {
                 LabelFecha.Text = "Fecha De Creacion";
                 TxtTitulo.Text = "Creando nueva Empresa";
+                BtnCancelar.Visible = false;
                 Dtp_Fecha_Actualizacion.Visible = false;
             }
         }
@@ -54,25 +56,12 @@ namespace CrudPrueba.Formularios
         private void BtnCancelar_Click(object sender, EventArgs e)
         {
             string nombre = table.Nombre.ToString();
-            if (EmpresaId == null)
+            DialogResult rpta = new DialogResult();
+            rpta = MessageBox.Show("¿Desea Cerrar Edicion De La Empresa " + nombre + "?", "¡Los Cambios No Se Guardaran!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (rpta == DialogResult.OK)
             {
-                DialogResult rpta = new DialogResult();
-                rpta = MessageBox.Show("¿Desea Cerrar Creacion De Empresas?" , "¡Cerrando!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (rpta == DialogResult.OK)
-                {
-                    this.Close();
-                }
+                this.Close();
             }
-            else
-            {
-                DialogResult rpta = new DialogResult();
-                rpta = MessageBox.Show("¿Desea Cerrar Edicion De La Empresa " +nombre + "?" , "¡Los Cambios No Se Guardaran!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-                if (rpta == DialogResult.OK)
-                {
-                    this.Close();
-                }
-            }
-            
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
@@ -103,6 +92,16 @@ namespace CrudPrueba.Formularios
                 }
                 db.SaveChanges();
                 
+                this.Close();
+            }
+        }
+
+        private void BtnCancelarCrear_Click(object sender, EventArgs e)
+        {
+            DialogResult rpta = new DialogResult();
+            rpta = MessageBox.Show("¿Desea Cerrar Creacion De Empresas?", "¡Cerrando!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (rpta == DialogResult.OK)
+            {
                 this.Close();
             }
         }
