@@ -74,12 +74,21 @@ namespace CrudPrueba
                 formCompanyEditor.ShowDialog();
                 Refrescar();
             }
+            else
+            {
+                DialogResult rpta = new DialogResult();
+                rpta = MessageBox.Show("Seleccione Alguna Empresa", "¡Seleccione Empresa!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if(rpta == DialogResult.OK)
+                {
+
+                }
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             DialogResult rpta = new DialogResult();
-            rpta = MessageBox.Show("¿Desea Salir De La Aplicacion?", "¡Cerrando Aplicacion!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            rpta = MessageBox.Show("¿Desea Salir De La Aplicacion?", "¡Cerrando Aplicacion!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             if (rpta == DialogResult.OK)
             {
                 Application.Exit();
@@ -88,22 +97,32 @@ namespace CrudPrueba
 
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
-            string nombre = Dgv.CurrentRow.Cells[1].Value.ToString();
+            
             int? EmpresaId = GetId();
-            DialogResult rpta = new DialogResult();
-            rpta = MessageBox.Show("¿Desea Eliminar La Empresa " +nombre+ "?" , "¡Eliminando Empresa!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            if (rpta == DialogResult.OK)
+
+            if (EmpresaId != null)
             {
-                if (EmpresaId != null)
+                using (CrudEntities db = new CrudEntities())
                 {
-                    using (CrudEntities db = new CrudEntities())
+                    DialogResult rpta = new DialogResult();
+                    rpta = MessageBox.Show("¿Desea Eliminar La Empresa ", "¡Eliminando Empresa!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    if (rpta == DialogResult.OK)
                     {
                         tabla table = db.tabla.Find(EmpresaId);
                         db.tabla.Remove(table);
 
                         db.SaveChanges();
                     }
-                Refrescar();
+                    Refrescar();
+                }
+            }
+            else
+            {
+                DialogResult rpta = new DialogResult();
+                rpta = MessageBox.Show("Seleccione Alguna Empresa", "¡Seleccione Empresa!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (rpta == DialogResult.OK)
+                {
+
                 }
             }
         }

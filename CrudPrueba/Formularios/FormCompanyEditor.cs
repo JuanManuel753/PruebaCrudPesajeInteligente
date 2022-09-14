@@ -70,8 +70,8 @@ namespace CrudPrueba.Formularios
             {
                 if(EmpresaId == null) 
                 { 
-                    tabla table = new tabla();
-                    table.Fecha_Creacion = Dtp_Fecha_Creacion.Value;
+                    table = new tabla();
+
                 }
                 table.Nombre = TxtNombre.Text;
                 table.Codigo = Convert.ToInt32(TxtCodigo.Text);
@@ -80,14 +80,15 @@ namespace CrudPrueba.Formularios
                 table.Ciudad = TxtCiudad.Text;
                 table.Pais = TxtPais.Text;
                 table.Departamento = TxtDepartamento.Text;
-                table.Ultima_Modificacion = Dtp_Fecha_Actualizacion.Value;
 
                 if (EmpresaId == null)
                 {
+                    table.Fecha_Creacion = Dtp_Fecha_Creacion.Value;
                     db.tabla.Add(table);
                 }
                 else
                 {
+                    table.Ultima_Modificacion = Dtp_Fecha_Actualizacion.Value;
                     db.Entry(table).State = System.Data.Entity.EntityState.Modified;
                 }
                 db.SaveChanges();
