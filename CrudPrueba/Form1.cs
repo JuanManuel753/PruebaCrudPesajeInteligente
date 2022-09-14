@@ -41,18 +41,33 @@ namespace CrudPrueba
 
         private void OculatarColumnaId()
         {
-            Dgv.Columns[0].Visible = false;
+            Dgv.Columns[1].Visible = false;
         }
 
         private int? GetId()
         {
             try
             {
-                return int.Parse(Dgv.Rows[Dgv.CurrentRow.Index].Cells[0].Value.ToString());
+                return int.Parse(Dgv.Rows[Dgv.CurrentRow.Index].Cells[1].Value.ToString());
             }
             catch
             {
                 return null;
+            }
+        }
+        private void Borrar(int empresaId)
+        {
+            try
+            {
+                using (CrudEntities db = new CrudEntities())
+                {
+                    db.tabla.Remove(db.tabla.Single(x => x.EmpresaId == empresaId));
+                    db.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
         #endregion
@@ -103,32 +118,46 @@ namespace CrudPrueba
 
         private void BtnEliminar1_Click(object sender, EventArgs e)
         {
-            int? EmpresaId = GetId();
-            if (EmpresaId != null)
+            
+            int Seleccionados = Dgv.Rows.Cast<DataGridViewRow>()
+                .Where(x => Convert.ToBoolean(x.Cells["Column1"].Value)).Count();
+            int EmpresaId;
+            DialogResult rpta = new DialogResult();
+            if (Seleccionados == 0)
             {
-                using (CrudEntities db = new CrudEntities())
-                {
-                    DialogResult rpta = new DialogResult();
-                    rpta = MessageBox.Show("¿Desea Eliminar La Empresa?" , "¡Eliminando Empresa!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    if (rpta == DialogResult.OK)
-                    {
-                        tabla table = db.tabla.Find(EmpresaId);
-                        db.tabla.Remove(table);
-
-                        db.SaveChanges();
-                    }
-                    Refrescar();
-                }
+                rpta = MessageBox.Show("Debe Seleccionar Almenos Una Empresa", "Seleccione Empresa", MessageBoxButtons.OK, MessageBoxIcon.Question);
             }
-            else
+            else if (Seleccionados == 1)
             {
-                DialogResult rpta = new DialogResult();
-                rpta = MessageBox.Show("Seleccione Alguna Empresa", "¡Seleccione Empresa!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                rpta = MessageBox.Show("¿Desea Eliminar la Empresa Seleccionada?", "¡Eliminando Empresa!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                 if (rpta == DialogResult.OK)
                 {
-
+                    foreach (DataGridViewRow row in Dgv.Rows)
+                    {
+                        if (Convert.ToBoolean(row.Cells["Column1"].Value))
+                        {
+                            EmpresaId = Convert.ToInt32(row.Cells["EmpresaId"].Value);
+                            Borrar(EmpresaId);
+                        }
+                    }
                 }
             }
+            else if (Seleccionados >= 2)
+            {
+                rpta = MessageBox.Show("¿Desea Eliminar " + Seleccionados + " Empresas Seleccionadas?", "¡Eliminando Empresa!", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                if (rpta == DialogResult.OK)
+                {
+                    foreach (DataGridViewRow row in Dgv.Rows)
+                    {
+                        if (Convert.ToBoolean(row.Cells["Column1"].Value))
+                        {
+                            EmpresaId = Convert.ToInt32(row.Cells["EmpresaId"].Value);
+                            Borrar(EmpresaId);
+                        }
+                    }
+                }
+            }
+            Refrescar();
         }
 
         private void BtnEditar1_Click(object sender, EventArgs e)
@@ -154,6 +183,11 @@ namespace CrudPrueba
         private void Hora_Tick(object sender, EventArgs e)
         {
             LblHora.Text = DateTime.Now.ToString("hh:mm:ss");
+        }
+
+        private void Dgv_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

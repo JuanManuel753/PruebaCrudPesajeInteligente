@@ -34,6 +34,7 @@
             Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges borderEdges11 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges();
             Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges borderEdges12 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.LblHora = new System.Windows.Forms.Label();
             this.BtnEliminar1 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
             this.TxtBuscador = new System.Windows.Forms.TextBox();
             this.BtnEditar1 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
@@ -43,8 +44,8 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.Dgv = new System.Windows.Forms.DataGridView();
             this.bunifuElipse1 = new Bunifu.Framework.UI.BunifuElipse(this.components);
-            this.LblHora = new System.Windows.Forms.Label();
             this.Hora = new System.Windows.Forms.Timer(this.components);
+            this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -81,6 +82,17 @@
             this.splitContainer1.Size = new System.Drawing.Size(781, 314);
             this.splitContainer1.SplitterDistance = 77;
             this.splitContainer1.TabIndex = 0;
+            // 
+            // LblHora
+            // 
+            this.LblHora.AutoSize = true;
+            this.LblHora.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LblHora.ForeColor = System.Drawing.Color.DodgerBlue;
+            this.LblHora.Location = new System.Drawing.Point(362, 49);
+            this.LblHora.Name = "LblHora";
+            this.LblHora.Size = new System.Drawing.Size(70, 25);
+            this.LblHora.TabIndex = 18;
+            this.LblHora.Text = "label1";
             // 
             // BtnEliminar1
             // 
@@ -399,9 +411,13 @@
             // 
             // Dgv
             // 
-            this.Dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.Dgv.AllowUserToAddRows = false;
+            this.Dgv.AllowUserToDeleteRows = false;
+            this.Dgv.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.Dgv.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(155)))), ((int)(((byte)(170)))), ((int)(((byte)(221)))));
             this.Dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1});
             this.Dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.Dgv.Location = new System.Drawing.Point(0, 0);
             this.Dgv.MultiSelect = false;
@@ -410,27 +426,23 @@
             this.Dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.Dgv.Size = new System.Drawing.Size(781, 233);
             this.Dgv.TabIndex = 0;
+            this.Dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_CellContentClick);
             // 
             // bunifuElipse1
             // 
             this.bunifuElipse1.ElipseRadius = 15;
             this.bunifuElipse1.TargetControl = this;
             // 
-            // LblHora
-            // 
-            this.LblHora.AutoSize = true;
-            this.LblHora.Font = new System.Drawing.Font("Roboto", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LblHora.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.LblHora.Location = new System.Drawing.Point(362, 49);
-            this.LblHora.Name = "LblHora";
-            this.LblHora.Size = new System.Drawing.Size(70, 25);
-            this.LblHora.TabIndex = 18;
-            this.LblHora.Text = "label1";
-            // 
             // Hora
             // 
             this.Hora.Enabled = true;
             this.Hora.Tick += new System.EventHandler(this.Hora_Tick);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Borrar";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 41;
             // 
             // Form1
             // 
@@ -470,6 +482,7 @@
         private Bunifu.UI.WinForms.BunifuButton.BunifuButton2 BtnEditar1;
         private System.Windows.Forms.Label LblHora;
         private System.Windows.Forms.Timer Hora;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
     }
 }
 
