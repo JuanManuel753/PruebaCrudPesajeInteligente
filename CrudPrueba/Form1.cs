@@ -56,8 +56,7 @@ namespace CrudPrueba
             }
         }
         #endregion
-
-        private void BtnCrear_Click(object sender, EventArgs e)
+        private void BtnCrear1_Click(object sender, EventArgs e)
         {
             FormCompanyEditor formCompanyEditor = new FormCompanyEditor();
             formCompanyEditor.ShowDialog();
@@ -67,22 +66,7 @@ namespace CrudPrueba
 
         private void BtnEditar_Click(object sender, EventArgs e)
         {
-            int? EmpresaId = GetId();
-            if(EmpresaId != null)
-            {
-                FormCompanyEditor formCompanyEditor = new FormCompanyEditor(EmpresaId);
-                formCompanyEditor.ShowDialog();
-                Refrescar();
-            }
-            else
-            {
-                DialogResult rpta = new DialogResult();
-                rpta = MessageBox.Show("Seleccione Alguna Empresa", "¡Seleccione Empresa!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if(rpta == DialogResult.OK)
-                {
-
-                }
-            }
+            
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -92,38 +76,6 @@ namespace CrudPrueba
             if (rpta == DialogResult.OK)
             {
                 Application.Exit();
-            }
-        }
-
-        private void BtnEliminar_Click(object sender, EventArgs e)
-        {
-            
-            int? EmpresaId = GetId();
-
-            if (EmpresaId != null)
-            {
-                using (CrudEntities db = new CrudEntities())
-                {
-                    DialogResult rpta = new DialogResult();
-                    rpta = MessageBox.Show("¿Desea Eliminar La Empresa ", "¡Eliminando Empresa!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
-                    if (rpta == DialogResult.OK)
-                    {
-                        tabla table = db.tabla.Find(EmpresaId);
-                        db.tabla.Remove(table);
-
-                        db.SaveChanges();
-                    }
-                    Refrescar();
-                }
-            }
-            else
-            {
-                DialogResult rpta = new DialogResult();
-                rpta = MessageBox.Show("Seleccione Alguna Empresa", "¡Seleccione Empresa!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                if (rpta == DialogResult.OK)
-                {
-
-                }
             }
         }
 
@@ -146,6 +98,66 @@ namespace CrudPrueba
             {
                 Refrescar();
             }
+        }
+
+        private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void BtnEliminar1_Click(object sender, EventArgs e)
+        {
+            int? EmpresaId = GetId();
+            if (EmpresaId != null)
+            {
+                using (CrudEntities db = new CrudEntities())
+                {
+                    DialogResult rpta = new DialogResult();
+                    rpta = MessageBox.Show("¿Desea Eliminar La Empresa?" , "¡Eliminando Empresa!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                    if (rpta == DialogResult.OK)
+                    {
+                        tabla table = db.tabla.Find(EmpresaId);
+                        db.tabla.Remove(table);
+
+                        db.SaveChanges();
+                    }
+                    Refrescar();
+                }
+            }
+            else
+            {
+                DialogResult rpta = new DialogResult();
+                rpta = MessageBox.Show("Seleccione Alguna Empresa", "¡Seleccione Empresa!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (rpta == DialogResult.OK)
+                {
+
+                }
+            }
+        }
+
+        private void BtnEditar1_Click(object sender, EventArgs e)
+        {
+            int? EmpresaId = GetId();
+            if (EmpresaId != null)
+            {
+                FormCompanyEditor formCompanyEditor = new FormCompanyEditor(EmpresaId);
+                formCompanyEditor.ShowDialog();
+                Refrescar();
+            }
+            else
+            {
+                DialogResult rpta = new DialogResult();
+                rpta = MessageBox.Show("Seleccione Alguna Empresa", "¡Seleccione Empresa!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (rpta == DialogResult.OK)
+                {
+
+                }
+            }
+        }
+
+        private void Hora_Tick(object sender, EventArgs e)
+        {
+            LblHora.Text = DateTime.Now.ToString("hh:mm:ss");
         }
     }
 }

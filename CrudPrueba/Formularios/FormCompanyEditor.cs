@@ -27,14 +27,14 @@ namespace CrudPrueba.Formularios
                 LabelFecha.Text = "Fecha De Actualizacion";
                 TxtTitulo.Text = "Editando Empresa";
                 Dtp_Fecha_Creacion.Visible = false;
-                BtnCancelarCrear.Visible = false;
+                BtnCancelar1.Visible = false;
                 CargarDatos();
             }
             else
             {
                 LabelFecha.Text = "Fecha De Creacion";
                 TxtTitulo.Text = "Creando nueva Empresa";
-                BtnCancelar.Visible = false;
+                BtnCancelar2.Visible = false;
                 Dtp_Fecha_Actualizacion.Visible = false;
             }
         }
@@ -53,23 +53,79 @@ namespace CrudPrueba.Formularios
                 Dtp_Fecha_Actualizacion.Value = Dtp_Fecha_Actualizacion.Value;      
             }
         }
-        private void BtnCancelar_Click(object sender, EventArgs e)
+
+
+
+
+        private void label5_Click(object sender, EventArgs e)
         {
-            string nombre = table.Nombre.ToString();
-            DialogResult rpta = new DialogResult();
-            rpta = MessageBox.Show("¿Desea Cerrar Edicion De La Empresa " + nombre + "?", "¡Los Cambios No Se Guardaran!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
-            if (rpta == DialogResult.OK)
-            {
-                this.Close();
-            }
+
         }
 
-        private void BtnGuardar_Click(object sender, EventArgs e)
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnGuardar1_Click(object sender, EventArgs e)
         {
             using (CrudEntities db = new CrudEntities())
             {
-                if(EmpresaId == null) 
-                { 
+                //validaciones
+                if(string.IsNullOrEmpty(TxtNombre.Text))
+                {
+                    MessageBox.Show("Debe Ingresar Un Nombre,", "warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (string.IsNullOrEmpty(TxtCodigo.Text))
+                {
+                    MessageBox.Show("Debe Ingresar Un Codigo", "warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (string.IsNullOrEmpty(TxtDireccion.Text))
+                {
+                    MessageBox.Show("Debe Ingresar Una Direccion", "warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (string.IsNullOrEmpty(TxtTelefono.Text))
+                {
+                    MessageBox.Show("Debe Ingresar Un Telefono", "warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (string.IsNullOrEmpty(TxtCiudad.Text))
+                {
+                    MessageBox.Show("Debe Ingresar Una Ciudad", "warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (string.IsNullOrEmpty(TxtPais.Text))
+                {
+                    MessageBox.Show("Debe Ingresar Un Pais", "warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (string.IsNullOrEmpty(TxtDepartamento.Text))
+                {
+                    MessageBox.Show("Debe Ingresar Un Departamento", "warning", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                //guardado y edicion
+                if (EmpresaId == null)
+                {
                     table = new tabla();
 
                 }
@@ -92,12 +148,19 @@ namespace CrudPrueba.Formularios
                     db.Entry(table).State = System.Data.Entity.EntityState.Modified;
                 }
                 db.SaveChanges();
+
+                
                 
                 this.Close();
             }
         }
 
-        private void BtnCancelarCrear_Click(object sender, EventArgs e)
+        private void TxtDireccion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnCancelar1_Click(object sender, EventArgs e)
         {
             DialogResult rpta = new DialogResult();
             rpta = MessageBox.Show("¿Desea Cerrar Creacion De Empresas?", "¡Cerrando!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
@@ -105,6 +168,27 @@ namespace CrudPrueba.Formularios
             {
                 this.Close();
             }
+        }
+
+        private void BtnCancelar2_Click(object sender, EventArgs e)
+        {
+            string nombre = table.Nombre.ToString();
+            DialogResult rpta = new DialogResult();
+            rpta = MessageBox.Show("¿Desea Cerrar Edicion De La Empresa " + nombre + "?", "¡Los Cambios No Se Guardaran!", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (rpta == DialogResult.OK)
+            {
+                this.Close();
+            }
+        }
+
+        private void FormCompanyEditor_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Hora_Tick(object sender, EventArgs e)
+        {
+            LblHora.Text = DateTime.Now.ToString("hh:mm:ss");
         }
     }
 }
